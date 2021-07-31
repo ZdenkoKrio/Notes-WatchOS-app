@@ -13,7 +13,8 @@ struct DetailView: View {
     let count: Int
     let index: Int
     
-    @State private var isCreditpresented: Bool = false
+    @State private var isCreditPresented: Bool = false
+    @State private var isSettingsPresented: Bool = false
     
     // MARK: - Body
     var body: some View {
@@ -37,6 +38,12 @@ struct DetailView: View {
             HStack(alignment: .center) {
                 Image(systemName: "gear")
                     .imageScale(.large)
+                    .onTapGesture {
+                        isSettingsPresented.toggle()
+                    }
+                    .sheet(isPresented: $isSettingsPresented, content: {
+                        SettingsView()
+                    })
                 
                 Spacer()
                 
@@ -47,9 +54,9 @@ struct DetailView: View {
                 Image(systemName: "info.circle")
                     .imageScale(.large)
                     .onTapGesture {
-                        isCreditpresented.toggle()
+                        isCreditPresented.toggle()
                     }
-                    .sheet(isPresented: $isCreditpresented, content: {
+                    .sheet(isPresented: $isCreditPresented, content: {
                         CreditsView()
                     })
                 
